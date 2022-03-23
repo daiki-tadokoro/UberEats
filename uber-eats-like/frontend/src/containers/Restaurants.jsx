@@ -32,17 +32,18 @@ const MainCover = styled.img`
 `;
 
 export const Restaurants = () => {
+  const [state, dispatch] = useReducer(restaurantsReducer, initialState);
+
   useEffect(() => {
     dispatch({ type: restaurantsActionTypes.FETCHING });
-    fetchRestaurants().then((data) => {
+    fetchRestaurants().then((data) =>
       dispatch({
-        type: restaurantsActionTypes,
-        FETCH_SUCCES,
+        type: restaurantsActionTypes.FETCH_SUCCESS,
         payload: {
           restaurants: data.restaurants,
         },
-      });
-    });
+      })
+    );
   }, []);
 
   return (
