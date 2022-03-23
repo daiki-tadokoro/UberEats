@@ -1,5 +1,9 @@
 import React, { Fragment, useEffect, useReducer } from "react";
 import styled from "styled-components";
+// Link
+import { Link } from "react-router-dom";
+// components
+import Skeleton from "@material-ui/lab/Skeleton";
 // apis
 import { fetchRestaurants } from "../apis/restaurants";
 
@@ -29,6 +33,32 @@ const MainCoverImageWrapper = styled.div`
 
 const MainCover = styled.img`
   height: 600px;
+`;
+
+const RestaurantsContentsList = styled.div`
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 150px;
+`;
+
+const RestaurantsContentWrapper = styled.div`
+  width: 450px;
+  height: 300px;
+  padding: 48px;
+`;
+
+const RestaurantsImageNode = styled.img`
+  width: 100%;
+`;
+
+const MainText = styled.p`
+  color: black;
+  font-size: 18px;
+`;
+
+const SubText = styled.p`
+  color: black;
+  font-size: 12px;
 `;
 
 export const Restaurants = () => {
