@@ -13,9 +13,12 @@ import {
   restaurantsReducer,
 } from "../reducers/restaurants";
 
+import { REQUEST_STATE } from "../constants";
+
 // images
 import MainLogo from "../images/logo.png";
 import MainCoverImage from "../images/main-cover-image.png";
+import RestaurantImage from "../images/restaurant-image.jpg";
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -84,9 +87,29 @@ export const Restaurants = () => {
       <MainCoverImageWrapper>
         <MainCover src={MainCoverImage} alt="main cover" />
       </MainCoverImageWrapper>
-      {state.restaurantsList.map((restaurant) => (
-        <div>{restaurant.name}</div>
-      ))}
+      <RestaurantsContentsList>
+        {state.fetchState === REQUEST_STATE.LOADING ? (
+          <Fragment>
+            <Skeleton variant="rect" width={450} height={300} />
+            <Skeleton variant="rect" width={450} height={300} />
+            <Skeleton variant="rect" width={450} height={300} />
+          </Fragment>
+        ) : (
+          state.restaurantsList.map((item, index) => (
+            <Link
+              to={`/restaurants/${item.id}/foods`}
+              key={index}
+              style={{ textDecoration: "none" }}
+            >
+              <RestaurantsContentWrapper>
+                <RestaurantsImageNode src={RestaurantImage} />
+                <MainText>{item.name}</MainText>
+                <SubText>{`配送料：${item.fee}円 ${item.time_required}分`}</SubText>
+              </RestaurantsContentWrapper>
+            </Link>
+          ))
+        )}
+      </RestaurantsContentsList>
     </Fragment>
   );
 };
