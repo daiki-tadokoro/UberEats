@@ -16,7 +16,7 @@ export const NewOrderConfirmDialog = ({
     <DialogContent>
       <p>
         {`ご注文に ${existingResutaurautName} の商品が含まれています。
-        新規の注文を開始して ${newResutaurautName} の商品を追加してください。`}
+          新規の注文を開始して ${newResutaurautName} の商品を追加してください。`}
       </p>
       {/* 先ほど作ったOrderButtonをここで使用 */}
       <OrderButton onClick={onClickSubmit}>新規注文</OrderButton>

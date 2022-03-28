@@ -28,7 +28,7 @@ module Api
       
       # 仮注文の作成
       def create
-        if LineFood.active.other_restaurant(@order_food.restaurant.id).exists?
+        if LineFood.active.other_restaurant(@ordered_food.restaurant.id).exists?
           return render json: {
             existing_restaurant: LineFood.other_restaurant(@ordered_food.restaurant.id).first.restaurant.name,
             new_restaurant: Food.find(params[:food_id]).restaurant.name,
@@ -60,7 +60,7 @@ module Api
             line_food: @line_food
         }, status: :created
         else
-          render json {}, status: :internal_saver_error
+          render json {}, status: :internal_server_error
         end
       end
 
