@@ -60,11 +60,15 @@ export const Orders = () => {
   }, []);
 
   const postLineFoods = () => {
+    console.log("発火");
     dispatch({ type: lineFoodsActionTypes.POSTING });
+    console.log("発火1", state.lineFoodsSummary.line_food_ids);
     postOrder({
       line_food_ids: state.lineFoodsSummary.line_food_ids,
     }).then(() => {
+      console.log("発火2");
       dispatch({ type: lineFoodsActionTypes.POST_SUCCESS });
+      console.log("発火3");
       window.location.reload();
     });
   };

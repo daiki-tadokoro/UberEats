@@ -21,23 +21,26 @@ export const lineFoodsReducer = (state, action) => {
         ...state,
         fetchState: REQUEST_STATE.LOADING,
       };
-    case lineFoodsActionTypes.SUCCESS:
+    case lineFoodsActionTypes.FETCH_SUCCESS:
       console.log("action2", action);
       return {
         fetchState: REQUEST_STATE.OK,
         lineFoodsSummary: action.payload.lineFoodsSummary,
       };
     case lineFoodsActionTypes.POSTING:
+      console.log("action3", action);
       return {
         ...state,
         postState: REQUEST_STATE.LOADING,
       };
     case lineFoodsActionTypes.POST_SUCCESS:
+      console.log("action4", action);
       return {
         ...state,
         postState: REQUEST_STATE.OK,
       };
     default:
+      console.log("action5", action);
       throw new Error();
   }
 };

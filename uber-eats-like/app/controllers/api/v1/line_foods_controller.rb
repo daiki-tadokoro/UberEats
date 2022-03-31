@@ -53,7 +53,7 @@ module Api
           line_food.update_attribute(:active, false)
         end
 
-        set_line_food(@orderd_food)
+        set_line_food(@ordered_food)
 
         if @line_food.save
           render json: {

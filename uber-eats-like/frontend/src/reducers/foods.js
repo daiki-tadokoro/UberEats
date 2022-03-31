@@ -11,7 +11,7 @@ export const foodsActionTypes = {
   FETCH_SUCCESS: "FETCH_SUCCESS",
 };
 
-export const foodsRedeucer = (state, action) => {
+export const foodsReducer = (state, action) => {
   switch (action.type) {
     // 取得中
     case foodsActionTypes.FETCHING:

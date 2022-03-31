@@ -12,19 +12,19 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import {
   initialState as foodsInitialState,
   foodsActionTypes,
-  foodsRedeucer,
+  foodsReducer,
 } from "../reducers/foods";
 
-// api
+// apis
 import { fetchFoods } from "../apis/foods";
 import { postLineFoods, replaceLineFoods } from "../apis/line_foods";
 
 // images
 import MainLogo from "../images/logo.png";
-import FoodImage from "../images/food-image.jpg";
 import { FoodOrderDialog } from "../components/FoodOrderDialog";
+import FoodImage from "../images/food-image.jpg";
 
-// constans 取得判断のためのstate
+// constants
 import { HTTP_STATUS_CODE } from "../constants";
 import { COLORS } from "../style_constants";
 import { REQUEST_STATE } from "../constants";
@@ -65,10 +65,10 @@ export const Foods = ({ match }) => {
     selectedFoodCount: 1,
     isOpenNewOrderDialog: false,
     existingResutaurautName: "",
-    newResutaurantName: "",
+    newResutaurautName: "",
   };
   const [state, setState] = useState(initialState);
-  const [foodsState, dispatch] = useReducer(foodsRedeucer, foodsInitialState);
+  const [foodsState, dispatch] = useReducer(foodsReducer, foodsInitialState);
   const history = useHistory();
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export const Foods = ({ match }) => {
           foods: data.foods,
         },
       });
-    }); // eslint-disable-next-line react-hooks/exhaustive-deps
+    });
   }, []);
 
   const submitOrder = () => {
@@ -140,8 +140,8 @@ export const Foods = ({ match }) => {
                 onClickFoodWrapper={(food) =>
                   setState({
                     ...state,
-                    isOpenOrderDialog: true,
                     selectedFood: food,
+                    isOpenOrderDialog: true,
                   })
                 }
                 imageUrl={FoodImage}
@@ -167,9 +167,7 @@ export const Foods = ({ match }) => {
               selectedFoodCount: state.selectedFoodCount - 1,
             })
           }
-          // 先ほど作った関数を渡す
           onClickOrder={() => submitOrder()}
-          // モーダル を閉じる時は全てのstateを初期化
           onClose={() =>
             setState({
               ...state,
