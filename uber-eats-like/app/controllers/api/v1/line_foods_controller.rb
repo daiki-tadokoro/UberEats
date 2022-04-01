@@ -11,16 +11,32 @@ module Api
         # .exists?メソッドは対象のインスタンスのデータがDBに存在するかどうか？を
         # true/falseで返す
         if line_foods.exists?
+          # render json: {
+          #   # Rubyの.mapメソッドは配列やハッシュオブジェクトなどを１つずつとりだし
+          #   # .mapより後ろのブロック(ここでは{ |line_food| line_food.id }の部分)をあてる
+          #   line_food_ids: line_foods.map { |line_food| line_food.id },
+          #   # １つの仮注文につき１つの店舗という仕様のため
+          #   # line_foodsの中にある先頭のline_foodインスタンスの店舗の情報を詰めている
+          #   restaurant: line_foods[0].restaurant,
+          #   count: line_foods.sum { |line_food| line_food[:count] },
+          #   amount: line_foods.sum { |line_food| line_food.total_amount },
+          # }, status: :ok
+          line_food_ids = []
+          count = 0
+          amount = 0
+
+          line_foods.each do line_foodl
+            line_food_ids << line_food.id #(1) idを参照して配列を追加する
+            count += line_food[:count] #(2) countのデータを合算する
+            amount += line_food.total_amount #(3) total_amountを合算する
+          end
+
           render json: {
-            # Rubyの.mapメソッドは配列やハッシュオブジェクトなどを１つずつとりだし
-            # .mapより後ろのブロック(ここでは{ |line_food| line_food.id }の部分)をあてる
-            line_food_ids: line_foods.map { |line_food| line_food.id },
-            # １つの仮注文につき１つの店舗という仕様のため
-            # line_foodsの中にある先頭のline_foodインスタンスの店舗の情報を詰めている
+            line_food_ids: line_food_ids,
             restaurant: line_foods[0].restaurant,
-            count: line_foods.sum { |line_food| line_food[:count] },
-            amount: line_foods.sum { |line_food| line_food.total_amount },
-          }, status: :ok
+            count: count,
+            amount: amount,
+          }, status: ok
         else
           render json: {}, status: :no_content
         end
